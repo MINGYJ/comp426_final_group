@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Exercise Tracker - Fitness Goals</title>
+    <meta property="og:title" content="Exercise Tracker - Fitness Goals" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="./user-screen.css" />
+  </head>
+  <body>
+    <div class="user-screen-container">
+      <h1 class="user-screen-text">
+        Track Your Fitness Journey and Calorie Burn!
+      </h1>
+      <img
+        src="./public/playground_assets/image-200h.png"
+        alt="Fitness Tracker"
+        class="user-screen-image"
+      />
+      <div class="container">
+        <div class="left">
+          <h2>
+            Remaining Daily Calorie Goal:
+            <span id="daily-calorie-amount"><%= cal_need %></span>
+          </h2>
+
+          <h3>Log Your Exercises</h3>
+          <ul id="exercise-list">
+            <% users.forEach(item => { %>
+            <li>
+              <%= item.name %>(<%= item.type %>): <%= item.burned %> calories
+              burned
+            </li>
+            <% }); %>
+          </ul>
+
+          <form action="/user-screen" id="add-exercise-form" method="post">
+            <label for="exercise-name-input">Exercise Name:</label>
+            <input
+              name="name"
+              type="text"
+              id="exercise-name-input"
+              placeholder="Enter the exercise name"
+            />
+
+            <label for="exercise-type-select">Exercise Type:</label>
+            <select name="type" id="exercise-type-select">
+              <option value="cardio">Cardio</option>
+              <option value="strength">Strength Training</option>
+              <option value="flexibility">Flexibility</option>
+            </select>
+
+            <label for="exercise-calories-input">Calories Burned:</label>
+            <input
+              name="burned"
+              type="number"
+              id="exercise-calories-input"
+              placeholder="Enter calories burned"
+            />
+            <button type="submit">Add Exercise</button>
+          </form>
+        </div>
+        <div class="right">
+          <div class="sub-title">
+            There provides access a comprehensive list of thousands of exercises
+            targeting every major muscle group.
+          </div>
+
+          <label for="exercise-name-input" class="muscle-type-label"
+            >Muscle:</label
+          >
+          <input
+            name="muscle"
+            type="text"
+            id="muscle-type-input"
+            placeholder="Enter the muscle, for example biceps"
+          />
+          <button id="muscle-btn">Search By Muscle</button>
+          <div id="thousands-list"></div>
+        </div>
+      </div>
+
+      <!-- <script>
+            // Get references to DOM elements
+            const dailyCalorieAmountEl = document.getElementById('daily-calorie-amount');
+            const exerciseListEl = document.getElementById('exercise-list');
+            const addExerciseFormEl = document.getElementById('add-exercise-form');
+            const congratsMessageEl = document.getElementById('congrats-message');
+
+            // Set up event listener for form submission
+            addExerciseFormEl.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent form from refreshing page
+
+                // Get values from form inputs
+                const exerciseName = document.getElementById('exercise-name-input').value;
+                const exerciseType = document.getElementById('exercise-type-select').value;
+                const caloriesBurned = document.getElementById('exercise-calories-input').value;
+
+                // Create a new list item with the exercise name, type, and calories burned
+                const newListItemEl = document.createElement('li');
+                newListItemEl.innerHTML = `${exerciseName} (${exerciseType}): ${caloriesBurned} calories burned`;
+
+                // Add the new list item to the exercise list
+                exerciseListEl.appendChild(newListItemEl);
+
+                // Subtract the calories burned from the daily calorie goal
+                dailyCalorieAmountEl.innerHTML =
+                    parseInt(dailyCalorieAmountEl.innerHTML) - parseInt(caloriesBurned);
+
+                // If the daily calorie amount is zero or less, show the congrats message
+                if (parseInt(dailyCalorieAmountEl.innerHTML) <= 0) {
+                    congratsMessageEl.textContent = "Congratulations! You have reached your calorie goal for today.";
+                }
+            });
+        </script> -->
+
+      <script>
+        const muscleBtn = document.getElementById("muscle-btn");
+        const input = document.getElementById("muscle-type-input");
+        muscleBtn.addEventListener("click", () => {
+          const value = input.value;
+          fetch(
+            `https://api.api-ninjas.com/v1/exercises?muscle=${value}&difficulty=beginner`,
+            {
+              method: "GET",
+              headers: {
+                "X-Api-Key": "e8hNa/yfv9/8fABRln5CIw==VPGEQACkJeOnM2p7",
+              },
+            }
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              const list = document.getElementById("thousands-list");
+              if (!data || data.length === 0) {
+                list.innerHTML = "<p>No exercises found.</p>";
+                return;
+              }
+              let innerHTML = "";
+              data.forEach((item) => {
+                innerHTML += `<div>${item.name}</div>`;
+              });
+              list.innerHTML = innerHTML;
+            });
+        });
+      </script>
+    </div>
+
+    <div id="footer">
+      <form action="/user-screen" method="post">
+        <button type="submit">Go Home</button>
+      </form>
+    </div>
+  </body>
+</html>

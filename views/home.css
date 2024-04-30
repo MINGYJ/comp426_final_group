@@ -1,0 +1,62 @@
+:root {
+  --dl-color-gray-black: #333;
+  --dl-color-gray-white: #fff;
+  --dl-color-primary: #007bff;
+  --dl-color-error: #dc3545;
+}
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #13294b;
+}
+
+.home-container1 {
+  text-align: center;
+  width: 90%;
+  max-width: 600px;
+}
+
+.header.text {
+  font-size: 2.5rem;
+  color: #a4cae1;
+  margin-bottom: 20px;
+  font: 700 2.5rem 'Roboto', sans-serif;
+}
+
+.home-navlink {
+  margin-top: 20px;
+}
+
+.app-component-button.button {
+  font: 700 1rem 'Roboto', sans-serif;
+  color: var(--dl-color-gray-white);
+  background-color: var(--dl-color-primary);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.app-component-button.button:hover {
+  background-color: darken(var(--dl-color-primary), 10%);
+}
+
+.home-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .header.text {
+    font-size: 2rem;
+  }
+
+  .app-component-button.button {
+    padding: 8px 16px;
+  }
+}
+
