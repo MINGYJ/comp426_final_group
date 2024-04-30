@@ -23,17 +23,9 @@ Then you can enter `npm install` if you have up-to-date NPM on your device. If n
 \
 To start the server, please enter `npm start` or `node server.mjs` or `nodemon server.mjs`\
 
-## Team Roles
-
-### team
-
-### team
-
-### team
-
 ## Demo Video
 
-
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/7aJoiqDn1fc/0.jpg)](http://www.youtube.com/watch?v=7aJoiqDn1fc "Demo Video")
 
 
 
